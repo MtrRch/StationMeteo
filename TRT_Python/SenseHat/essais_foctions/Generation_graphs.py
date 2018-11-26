@@ -23,7 +23,7 @@ def Generation_Graph(fname,Axe_Y,Prefix):
     Nb_Jours_Annee_Courant = dt.datetime(annee_courant,12,31)- dt.datetime(annee_courant,1,1) # Nombre de jour dans l'année courante
     Nb_Jours_Annee_Courant = Nb_Jours_Annee_Courant/timedelta(days=1)
 
-    df = pd.read_csv(fname,sep='|',parse_dates=['date','heure'], header=0, names=['date','heure','température 1','température 2','humidité','pression'])
+    df = pd.read_csv(fname,sep=',',parse_dates=['date','heure'], header=0, names=['date','heure','température 1','température 2','humidité','pression'])
     print (df)
                                                           
     fig_1 = df.plot(x='date',y=Axe_Y, figsize = (10, 5))
