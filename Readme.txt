@@ -28,6 +28,12 @@ Arboressence:
 	|	
 	|--README.md: nécessaire pour l'utilisaton de materialize
 	|	
+	|--reboot.js: Script javascript contenant les fonction de reboot et shutdown (il apelle les scripts php qui lance les commandes système)
+	|		
+	|--reboot.php: contient la commande de reboot, est appelé par "reboot.js"
+	|		
+	|--shutdown.php: contient la commande de shutdown, est appelé par "reboot.js"
+	|
 	|--Version.php: Ongle du site web contenant les information de version de la station météo
 
 
