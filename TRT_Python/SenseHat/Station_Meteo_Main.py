@@ -194,13 +194,13 @@ middle_4 = [
 
 if os.path.isfile(fname): #Test si le fichier existe, si oui on ne fait rien
     file = open(fname, "at") # Ouverture du csv
-    wtr = csv.writer(file, delimiter='|') # création du writer
+    wtr = csv.writer(file, delimiter=',') # création du writer
     print("Le fichier '%s' existe"%fname)
     file.close() 
 
 else: #Si non, on créer le fichier + l'entête
     file = open(fname, "at") # Ouverture du csv
-    wtr = csv.writer(file, delimiter='|') # création du writer
+    wtr = csv.writer(file, delimiter=',') # création du writer
     wtr.writerow(('date','heure','température 1', 'température 2', 'humidité', 'pression', 'température exterieure', 'humidité exterieure', 'température chambre', 'humidité chambre')) #Ecriture de la 1ère ligne (titre des colonnes
     file.close() 
 
@@ -223,7 +223,7 @@ def Generation_Graph(fname,Axe_Y,Prefix):
     Nb_Jours_Annee_Courant = dt.datetime(annee_courant,12,31)- dt.datetime(annee_courant,1,1) # Nombre de jour dans l'année courante
     Nb_Jours_Annee_Courant = Nb_Jours_Annee_Courant/timedelta(days=1)
 
-    df = pd.read_csv(fname,sep='|',parse_dates=['date','heure'], header=0, names=['date','heure','température 1','température 2','humidité','pression', 'température exterieure', 'humidité exterieure', 'température chambre', 'humidité chambre'])
+    df = pd.read_csv(fname,sep=',',parse_dates=['date','heure'], header=0, names=['date','heure','température 1','température 2','humidité','pression', 'température exterieure', 'humidité exterieure', 'température chambre', 'humidité chambre'])
     #print (df)
                                                           
     fig_1 = df.plot(x='date',y=Axe_Y, figsize = (10, 5))
@@ -334,12 +334,12 @@ while True:
       Generation_Graph(fname,'humidité chambre','hum_chambre')     #Génération des courbes pression
       
       file = open(fname, "at") # Ouverture du csv
-      wtr = csv.writer(file, delimiter='|') # création du writer
+      wtr = csv.writer(file, delimiter=',') # création du writer
       
-      concat = ["{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}".format(date,heure,Temp_Salon, temp_hum, Hum_Salon, press, Temp_ext,Hum_ext,Temp_chambre,Hum_chambre)] # Création de la ligne concaténant toutes les variables qui sera écrite dans le CSV
+      concat = ["{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}".format(date,heure,Temp_Salon, temp_hum, Hum_Salon, press, Temp_ext,Hum_ext,Temp_chambre,Hum_chambre)] # Création de la ligne concaténant toutes les variables qui sera écrite dans le CSV
       print("concat = %s" %concat) # On l'affiche #JustToCheck #AuCasOu
 
-      wtr.writerows(i.strip().split('|') for i in concat)
+      wtr.writerows(i.strip().split(',') for i in concat)
       
       #os.system('python3 Generation_graphs.py')
       

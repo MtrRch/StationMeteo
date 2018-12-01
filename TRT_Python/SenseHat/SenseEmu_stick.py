@@ -187,13 +187,13 @@ middle_4 = [
 
 if os.path.isfile(fname): #Test si le fichier existe, si oui on ne fait rien
     file = open(fname, "at") # Ouverture du csv
-    wtr = csv.writer(file, delimiter='|') # création du writer
+    wtr = csv.writer(file, delimiter=',') # création du writer
     print("Le fichier '%s' existe"%fname)
     file.close() 
 
 else: #Si non, on créer le fichier + l'entête
     file = open(fname, "at") # Ouverture du csv
-    wtr = csv.writer(file, delimiter='|') # création du writer
+    wtr = csv.writer(file, delimiter=',') # création du writer
     wtr.writerow(('date','heure','température 1', 'température 2', 'humidité', 'pression')) #Ecriture de la 1ère ligne (titre des colonnes
     file.close() 
 
@@ -222,7 +222,7 @@ def Generation_Graph(fname,Axe_Y,Prefix):
     Nb_Jours_Annee_Courant = dt.datetime(annee_courant,12,31)- dt.datetime(annee_courant,1,1) # Nombre de jour dans l'année courante
     Nb_Jours_Annee_Courant = Nb_Jours_Annee_Courant/timedelta(days=1)
 
-    df = pd.read_csv(fname,sep='|',parse_dates=['date','heure'], header=0, names=['date','heure','température 1','température 2','humidité','pression'])
+    df = pd.read_csv(fname,sep=',',parse_dates=['date','heure'], header=0, names=['date','heure','température 1','température 2','humidité','pression'])
                                                           
     fig_1 = df.plot(x='date',y=Axe_Y, figsize = (10, 5))
     
@@ -321,12 +321,12 @@ while True:
           
   if min == min_ref+Interval:
       file = open(fname, "at") # Ouverture du csv
-      wtr = csv.writer(file, delimiter='|') # création du writer
+      wtr = csv.writer(file, delimiter=',') # création du writer
       
-      concat = ["{0}|{1}|{2}|{3}|{4}|{5}".format(date,heure,temp_press, temp_hum, hum, press)] # Création de la ligne concaténant toutes les variables qui sera écrite dans le CSV
+      concat = ["{0},{1},{2},{3},{4},{5}".format(date,heure,temp_press, temp_hum, hum, press)] # Création de la ligne concaténant toutes les variables qui sera écrite dans le CSV
       print("concat = %s" %concat) # On l'affiche #JustToCheck #AuCasOu
 
-      wtr.writerows(i.strip().split('|') for i in concat)
+      wtr.writerows(i.strip().split(',') for i in concat)
       
       min_ref = int(time.strftime("%M"))    
   

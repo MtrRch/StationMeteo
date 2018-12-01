@@ -27,7 +27,7 @@
 	<?php //Relecture de la dernière ligne du CSV + inscription dans les variables
 			$ligne = 1; // compteur de ligne
 			$fic = fopen("export_donnees_SenseHat.csv", "r"); //Ouverture du fichier en lecture
-			while($tab=fgetcsv($fic,0,'|'))
+			while($tab=fgetcsv($fic,0,','))
 			{
 				$champs = count($tab);//nombre de champ dans la ligne en question
 				//echo " Les " . $champs . " champs de la ligne " . $ligne . " sont :";
