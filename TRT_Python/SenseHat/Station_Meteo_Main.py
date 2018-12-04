@@ -1,7 +1,8 @@
+#!/bin/python
+
 ########################################################
 #
 # Programe "main" de la station météo dev par Math
-#
 #
 ########################################################
 
@@ -16,177 +17,19 @@ import pandas as pd
 import datetime as dt
 import calendar
 import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
 
 Interval = 5 #interval de capture pour le CSV en minutes
 
-#os.system('bash /home/pi/Desktop/SenseHat/Script_acq_domoticz.sh') # On lance le script qui récupère les donnée sur domoticz et les inscrit dans un fichier
+os.system('bash /home/pi/Desktop/SenseHat/Script_acq_domoticz.sh') # On lance le script qui récupère les donnée sur domoticz et les inscrit dans un fichier
+
 
 annee_enreg = time.strftime("%Y") #Année courante
 
 fname = "/home/pi/Desktop/SenseHat/export_donnees_SenseHat.csv" #Nom du fichier "*.csv" dans lequel écrire
-
-
-#
-# Définition des couleurs  
-#
-
-R = (255,0,0) # R pour Rouge
-O = [255, 127, 0] # O pour Orange 
-J = [255, 255, 0] # J pour jaune
-V = (0,255,0) # grand V pour Vert
-B = (0,0,255)# B pour bleu
-I = [75, 0, 130]  # I pour ???
-P = [159, 0, 255] # B pour Purple (Violet)
-N = (0,0,0) # N pour Noir
-W = (255,255,255) # W pour White (Blanc)
-
-#
-# Fin définition des couleurs  
-#
-
-#
-# Création des images
-#
-
-# Création de l'image «unité de température»
-temp_Unit = [
-  N, N, N, N, N, N, N, N, 
-  R, R, N, N, R,  R, R, R,
-  R, R, N, R, N, N, N, N,
-  N, N, N, R, N, N, N, N,
-  N, N, N, R, N, N, N, N,
-  N, N, N, R, N, N, N, N,
-  N, N, N, N, R,  R, R, R,
-  N, N, N, N, N,  N, N, N
-  ]
-  
-# Création de l'image «unité de %»
-Hum_Unit = [
-  N, N, N, N, N, N, N, N, 
-  N, V, V, N, N, N, V, N,
-  N, V, V, N, N, V, N, N,
-  N, N, N, N, V, N, N, N,
-  N, N, N, V, N, N, N, N,
-  N, N, V, N, N, V, V, N,
-  N, V, N, N, N, V, V, N,
-  N, N, N, N, N, N, N, N,
-  ]
-  
-# Création de l'image «unité de Pa»
-press_Unit = [
-  N, N, N, N, N, N, N, N, 
-  N, B, B, N, N, N, N, N,
-  B, N, N, B, N, N, N, N,
-  B, N, N, B, N, N, B, N,
-  B, B, B, N, N, B, N, B,
-  B, N, N, N, N, B, B, B,
-  B, N, N, N, N, B, N, B,
-  N, N, N, N, N, N, N, N,
-  ]
-  
-# Création de l'image «Flèche bas»
-down = [
-  N, N, N, P, P, N, N, N, 
-  N, N, N, P, P, N, N, N,
-  N, N, N, P, P, N, N, N,
-  N, N, N, P, P, N, N, N,
-  N, N, N, P, P, N, N, N,
-  N, P, P, P, P, P, P, N,
-  N, N, P, P, P, P, N, N,
-  N, N, N, P, P, N, N, N,
-  ]
-  
-# Création de l'image «Flèche haut»
-up = [
-  N, N, N, P, P, N, N, N,
-  N, N, P, P, P, P, N, N,
-  N, P, P, P, P, P, P, N,
-  N, N, N, P, P, N, N, N,
-  N, N, N, P, P, N, N, N,
-  N, N, N, P, P, N, N, N,
-  N, N, N, P, P, N, N, N,
-  N, N, N, P, P, N, N, N,
-  ]
-  
-  # Création de l'image «Flèche droite»
-right = [
-  N, N, N, N, N, N, N, N,
-  N, N, N, N, N, P, N, N,
-  N, N, N, N, N, P, P, N,
-  P, P, P, P, P, P, P, P,
-  P, P, P, P, P, P, P, P,
-  N, N, N, N, N, P, P, N,
-  N, N, N, N, N, P, N, N,
-  N, N, N, N, N, N, N, N
-  ]
-
-# Création de l'image «Flèche gauche»
-left = [
-  N, N, N, N, N, N, N, N,
-  N, N, P, N, N, N, N, N,
-  N, P, P, N, N, N, N, N,
-  P, P, P, P, P, P, P, P,
-  P, P, P, P, P, P, P, P,
-  N, P, P, N, N, N, N, N,
-  N, N, P, N, N, N, N, N,
-  N, N, N, N, N, N, N, N
-  ]
- 
-# Création de l'image «Middle 1»
-middle_1 = [
-  P, P, P, P, P, P, P, P,
-  P, N, N, N, N, N, N, P,
-  P, N, N, N, N, N, N, P,
-  P, N, N, N, N, N, N, P,
-  P, N, N, N, N, N, N, P,
-  P, N, N, N, N, N, N, P,
-  P, N, N, N, N, N, N, P,
-  P, P, P, P, P, P, P, P
-  ] 
-  
-# Création de l'image «Middle 2»
-middle_2 = [
-  N, N, N, N, N, N, N, N,
-  N, P, P, P, P, P, P, N,
-  N, P, N, N, N, N, P, N,
-  N, P, N, N, N, N, P, N,
-  N, P, N, N, N, N, P, N,
-  N, P, N, N, N, N, P, N,
-  N, P, P, P, P, P, P, N,
-  N, N, N, N, N, N, N, N
-  ]
-  
-# Création de l'image «Middle 3»
-middle_3 = [
-  N, N, N, N, N, N, N, N,
-  N, N, N, N, N, N, N, N,
-  N, N, P, P, P, P, N, N,
-  N, N, P, N, N, P, N, N,
-  N, N, P, N, N, P, N, N,
-  N, N, P, P, P, P, N, N,
-  N, N, N, N, N, N, N, N,
-  N, N, N, N, N, N, N, N
-  ]  
-  
-  # Création de l'image «Middle 4»
-middle_4 = [
-  N, N, N, N, N, N, N, N,
-  N, N, N, N, N, N, N, N,
-  N, N, N, N, N, N, N, N,
-  N, N, N, P, P, N, N, N,
-  N, N, N, P, P, N, N, N,
-  N, N, N, N, N, N, N, N,
-  N, N, N, N, N, N, N, N,
-  N, N, N, N, N, N, N, N
-  ]
-
-#
-# Fin Création des images
-#
-
 
 #
 # Création du fichier "*.csv"
@@ -250,35 +93,33 @@ def Generation_Graph(fname,Axe_Y,Prefix):
     plt.xlabel('date')
     plt.ylabel(Axe_Y)
     plt.tight_layout()
-    
-    if xmin != xmax:    
-        if xmax-relativedelta(days=Nb_Jours_Sem)<date_min: # Si on a pas le delta de jour d'enregistrement
-            #print("Evolution sur une semaine:il manque malheuresement des valeurs pour afficher toute la plage")
-            xmin = date_min
-        else:
-            xmin = xmax - relativedelta(days=Nb_Jours_Sem) # si on a plus que le delta de jour en enregistrement
+       
+    if xmax-relativedelta(days=Nb_Jours_Sem)<date_min: # Si on a pas le delta de jour d'enregistrement
+        #print("Evolution sur une semaine:il manque malheuresement des valeurs pour afficher toute la plage")
+        xmin = date_min
+    else:
+        xmin = xmax - relativedelta(days=Nb_Jours_Sem) # si on a plus que le delta de jour en enregistrement
                 
     plt.xlim(xmin,xmax) # On "zoom"
     chemin="/home/pi/Desktop/SenseHat/Graphs/%s_Sem.png"%Prefix
     plt.savefig(chemin)  # enregistrement de la courbe
 
-    if xmin != xmax:
-        if xmax-relativedelta(days=Nb_Jours_Mois_Courant)<date_min: # Si on a pas le delta de jour d'enregistrement    print("il manque des valeurs pour afficher toute la plage")
-            xmin = date_min
-            #print("Evolution sur un mois:il manque malheuresement des valeurs pour afficher toute la plage")
-        else:
-            xmin = xmax - relativedelta(days=Nb_Jours_Mois_Courant) # si on a plus que le delta de jour en enregistrement
+    
+    if xmax-relativedelta(days=Nb_Jours_Mois_Courant)<date_min: # Si on a pas le delta de jour d'enregistrement    print("il manque des valeurs pour afficher toute la plage")
+        xmin = date_min
+        #print("Evolution sur un mois:il manque malheuresement des valeurs pour afficher toute la plage")
+    else:
+        xmin = xmax - relativedelta(days=Nb_Jours_Mois_Courant) # si on a plus que le delta de jour en enregistrement
                 
     plt.xlim(xmin,xmax) # On "zoom"
     chemin="/home/pi/Desktop/SenseHat/Graphs/%s_Mois.png"%Prefix
     plt.savefig(chemin)  # enregistrement de la courbe
 
-    if xmin != xmax: 
-        if xmax-relativedelta(days=Nb_Jours_Annee_Courant)<date_min: # Si on a pas le delta de jour d'enregistrement
-            #print("Evolution sur une année:il manque malheuresement des valeurs pour afficher toute la plage")
-            xmin = date_min
-        else:
-            xmin = xmax - relativedelta(days=Nb_Jours_Annee_Courant) # si on a plus que le delta de jour en enregistrement
+    if xmax-relativedelta(days=Nb_Jours_Annee_Courant)<date_min: # Si on a pas le delta de jour d'enregistrement
+        #print("Evolution sur une année:il manque malheuresement des valeurs pour afficher toute la plage")
+        xmin = date_min
+    else:
+        xmin = xmax - relativedelta(days=Nb_Jours_Annee_Courant) # si on a plus que le delta de jour en enregistrement
                 
     plt.xlim(xmin,xmax) # On "zoom"
     chemin="/home/pi/Desktop/SenseHat/Graphs/%s_Annee.png"%Prefix
@@ -291,6 +132,7 @@ def Generation_Graph(fname,Axe_Y,Prefix):
 #
 
 while True:
+  #os.system('bash /home/pi/Desktop/SenseHat/Script_acq_domoticz.sh') # On lance le script qui récupère les donnée sur domoticz et les inscrit dans un fichier
   temp_hum = 25 #Non utilisé pour le moment prédispo
   press = 1000 #Non utilisé pour le moment prédispo
   
@@ -340,8 +182,6 @@ while True:
       print("concat = %s" %concat) # On l'affiche #JustToCheck #AuCasOu
 
       wtr.writerows(i.strip().split('|') for i in concat)
-      
-      #os.system('python3 Generation_graphs.py')
       
       min_ref = int(time.strftime("%M"))
       
