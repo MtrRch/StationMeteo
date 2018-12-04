@@ -3,6 +3,7 @@
     <head>
       
 	    <title>Weather 'Math' Station</title>
+		<link rel="icon" type="image/png" href="icones/favicon_cloud.png" />
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 		<meta http-equiv="Content-Language" content="Fr"/>
 		<meta name="Author" lang="fr" content="Mathieu"/>
@@ -52,18 +53,13 @@
 	<div class="col s12 m12 l12"></div>
 	
 	<div class="row ">
-		<div class="col s1 m3 l3"></div>
+		<div class="col s1 m1 l1"></div>
 		
-		<div class="col s3 m3 l3"> <!--logo-->
-			<br />
-            <img class="responsive-img right" src="icones/Green_Cloud.png"/>	  
+		<div class="col s10 m10 l10"> <!--titre-->
+			<h1 class="green-text text-darken-2 center-align "> <b>Version</b></h1>		  
 		</div>
 		
-		<div class="col s3 m3 l3"> <!--titre-->
-			<h1 class="green-text text-darken-2 left-align "> <b>Version</b></h1>		  
-		</div>
-		
-		<div class="col s3 m3 l3"></div>
+		<div class="col s1 m1 l1"></div>
 
 	</div>	
 	
@@ -92,8 +88,8 @@
 					<span> Onglet "station météo": interface principale</span><br />
 					<span> Onglet "Informations Système": donnant des informations sur l'état du système (RPI)</span><br />
 					<span> Onglet "Version": Version de la station météo + informations diverses</span><br />
-					<span><b>Reception de l'etat des capteurs SenseHat</b></span><br />
-					<span><b>Gestion de l'afficheur SenseHat</b></span><br />
+					<span><b>Reception de l'etat des capteurs "chambre" et "Salon", prédispo capteur "ext"</b></span><br />
+					<span><b>Réception des données des capteurs distants 433MHz </b></span><br />
 					<span><b>Ecriture ddu fichier "*.csv"</b></span><br />
 					<span><b>Tracer des courbes dans des fichier "*.png" </b></span><br />
 
@@ -103,9 +99,10 @@
 				  <div class="collapsible-header"><i class="material-icons">filter_drama</i><b>Hardware</b></div> <!--titre du menu-->
 				  <div class="collapsible-body"> <!--corp du menu-->
 						<span> - Raspberry pi version 3</span><br />
-						<span> - Carte SenseHat</span><br />
 						<span> - dongle Wi-fi "Wi-Pi"</span><br />
-				  
+						<span> - Passerelle 433MHz "RFLink"</span><br />
+						<span> - 2 Capteurs Daniu 433MHz  (température et humidité) Pour Salon et chambre</span><br />
+						<span> - prédisposition Capteur Orégon THGR810 (température et humidité) pour ext</span><br />
 				  </div>
 				</li>
 				<li>
@@ -117,6 +114,8 @@
 					<span>      Serveur Appache "2"</span><br />
 					<span>      PhP "7"</span><br />
 					<span>      Materialize "1.0.0"</span><br />
+					<span><b> - Acquisition des Données radio (433MHz)</b></span><br />
+					<span>      Domoticz "4.9700" du 23/06/2018</span><br />
 				  </div>
 				</li>
 			</ul>

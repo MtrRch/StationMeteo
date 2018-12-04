@@ -3,14 +3,16 @@
     <head>
       
 	    <title>Weather Station</title>
+		<link rel="icon" type="image/png" href="icones/favicon_cloud.png" />
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 		<meta http-equiv="Content-Language" content="Fr"/>
 		<meta name="Author" lang="fr" content="Mathieu"/>
-		<meta name="Copyright" content="© Mathieu"/>
+		<meta name="Copyright" content="©Mathieu"/>
 		<meta http-equiv="Cache-Control" content="no-cache">
 		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Expires" content="0">
 		<meta http-equiv="refresh" content="3600;url=index.php">
+		
 		<!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
@@ -20,6 +22,9 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	  
 	  <script src="js/jquery.js"></script>
+	  
+	  <script type="text/javascript" src="reboot.js"></script>
+	  
     </head>
 	
 	<?php
@@ -113,7 +118,7 @@
 		<div class="col s1 m1 l1"></div>
 		
 		<div class="col s10 m10 l10"> <!--titre de la page-->
-			<h1 class="red-text text-darken-2 center-align "> <b>Informations système</b></h1>		  
+			<h2 class="red-text text-darken-2 center-align "> <b>Informations <br /> système</b></h2>		  
 		</div>
 		
 		<div class="col s1 m1 l1"></div>
@@ -154,30 +159,10 @@
 			</a>
 			<ul>
 				<li><a class="btn-floating green" href="export_donnees_SenseHat.csv"><i class="material-icons">file_download</i></a></li>
-				<li><a class="btn-floating yellow darken-1" onclick="restart()"><i class="material-icons">refresh</i>
-					<script>
-						function restart() 
-						{						
-							if (confirm("Veux-tu vraiment redémarrer la station?"))
-							{
-								<?php //exec('sudo -u www-data /sbin/reboot'); ?>
-								
-							}
-							
-						}
-					</script>
+				<li><a class="btn-floating yellow darken-1" onclick="reboot();"><i class="material-icons">refresh</i>
+
 				</a></li>
-				<li><a class="btn-floating blue"><i onclick="poweroff()" class="material-icons">power_settings_new</i>
-					<script>
-						function poweroff() 
-						{	
-							if (confirm("Veux-tu vraiment redémarrer la station?"))
-							{
-								<?php //system('sudo -u www-data /sbin/poweroff');?>
-							}
-							
-						}
-					</script>
+				<li><a class="btn-floating blue"><i onclick="shutdown();" class="material-icons">power_settings_new</i>
 				
 				</a></li>
 				<!--<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>-->

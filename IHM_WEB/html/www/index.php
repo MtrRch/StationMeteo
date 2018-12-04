@@ -23,6 +23,12 @@
 	  <script src="js/jquery.js"></script>
     </head>
 	
+	<?php 
+		// Execute un refresh de la page en PHP
+
+		$delai=60;  // délai en secondes
+		header("Refresh: $delai;");
+	?>
 	
 	<?php //Relecture de la dernière ligne du CSV + inscription dans les variables
 			$ligne = 1; // compteur de ligne
@@ -54,6 +60,11 @@
 		setlocale(LC_TIME, 'fr_FR.utf8','fra'); //useles sur la rasp OK sur win
 		$date = strftime('%A %d %B %Y');
 		$heure = strftime('%H:%M');
+	?>
+	
+	<?php
+		$Sunset = date_sunset(time(),SUNFUNCS_RET_STRING,48.77,2.07,90,1);
+		$Sunrise = date_sunrise(time(),SUNFUNCS_RET_STRING,48.77,2.07,90,1);
 	?>
 	
 	<?php
@@ -129,19 +140,35 @@
 		<li><a class="blue-text text-darken-2" href="Version.php">Version</a></li>
 	</ul>
 
-    <div id="Home" class="col s12"> <!--affichage de l'heure-->
+    <div id="Home" class="col s12"> <!--affichage de la date-->
 		<div class="row">
 			<h3 class="center-align blue-text text-darken-2 col s12">
-				<?php echo $date; ?>
+				 <?php echo $date; ?> 
 			</h3>
-			<h2 class="center-align blue-text text-darken-2 col s12">	 <!--Affichage de la date-->
-				<b><?php echo $heure; ?></b>
-				<br /> 
-			</h2>
 		</div>
+	</div>
+	<div class="row">
+		<div class="col s1 m3 l3"></div>
+		<div class="col s2 m1 l1">
+		<img class="responsive-img right" src="icones/sunrise_1.png"/>
+		</div>
+		<div class="col s3 m2 l2">
+			<h4 class="blue-text text-darken-2 left-align"> <?php echo $Sunrise; ?></h4>
+		</div>
+		<div class="col s2 m2 l2">
+			<img class="responsive-img right" src="icones/sunset_1.png"/>
+		</div>
+		<div class="col s3 m3 l3">
+			<h4 class="blue-text text-darken-2 left-align"> <?php echo $Sunset; ?>  </h4>
+		</div>
+		<div class="col s1 m1 l1"></div>
+		
+		
 	</div>
 			
 	<div class="row center"> <!--affichage du récapitulatif des variables-->
+		<br />
+	
 		<div class="col s4 m4 l4"> <!--colonne 1-->
 			<img class="responsive-img" src="icones/degree.png"/>
 			<h6 class="blue-text text-darken-2 center-align"> Températures Salon</h6>
@@ -247,7 +274,7 @@
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Choix la durée d'affichage<option>
+			  <option value="0" disabled selected>Durée d'affichage<option>
 			  <!--<option value="13">Jours</option>-->
 			  <option value="14">Semaine</option>
 			  <option value="15">Mois</option>
@@ -303,7 +330,7 @@
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Choix la durée d'affichage<option>
+			  <option value="0" disabled selected>Durée d'affichage<option>
 			  <!-- <option value="17">Jours</option>-->
 			  <option value="18">Semaine</option>
 			  <option value="19">Mois</option>
@@ -385,7 +412,7 @@
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Choix la durée d'affichage<option>
+			  <option value="0" disabled selected>Durée d'affichage<option>
 			  <!--<option value="1">Jours</option>-->
 			  <option value="2">Semaine</option>
 			  <option value="3">Mois</option>
@@ -442,7 +469,7 @@
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Choix la durée d'affichage<option>
+			  <option value="0" disabled selected>Durée d'affichage<option>
 			  <!-- <option value="9">Jours</option>-->
 			  <option value="10">Semaine</option>
 			  <option value="11">Mois</option>
@@ -529,7 +556,7 @@
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Choix la durée d'affichage<option>
+			  <option value="0" disabled selected>Durée d'affichage<option>
 			  <!--<option value="21">Jours</option>-->
 			  <option value="22">Semaine</option>
 			  <option value="23">Mois</option>
@@ -585,7 +612,7 @@
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Choix la durée d'affichage<option>
+			  <option value="0" disabled selected>Durée d'affichage<option>
 			  <!-- <option value="25">Jours</option>-->
 			  <option value="26">Semaine</option>
 			  <option value="27">Mois</option>
