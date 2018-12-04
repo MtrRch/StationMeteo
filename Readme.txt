@@ -1,7 +1,8 @@
 PREREQUIS:
 	- Installation d'un serveur apache + php
-	- Installer "Domoticz" etajouter les capteurs (eventuellement modifier le script) --> http://blogmotion.fr/diy/jq-api-json-14942
-
+	- Installer "Domoticz" et ajouter les capteurs (eventuellement modifier le script) --> http://blogmotion.fr/diy/jq-api-json-14942
+	- Modification du fichier /etc/rc.local pour lancer le script au démarrage de linux (fichier enregistré sous GIT répertoire "LINUX")
+	- lancer chromium en mode Kiosk (plein écran) au démarrage à la page d'index de l'IHM
 
 
 IHM_WEB --> site web html
@@ -52,9 +53,16 @@ Arboressence:
 	|	
 	|-- export_donnees_SenseHat.csv: fichier contenant toutes les valeurs enregistrées des capteurs
 	|
-	|-- SenseEmu_stick.py: programme main utilisé en l'absence de la carte "SenseHat" avec le simulateur intégré à la distribution "Raspbian"
-	|
-	|-- SenseHat_Main.py: programme principal créant et remplissant le fichier CSV avec les données des capteurs et générant les courbes
+	|-- Station_Meteo_Main.py: programme principal créant et remplissant le fichier CSV avec les données des capteurs et générant les courbes
 	|
 	|-- Script_acq_domoticz.sh: Script permettant de récupérer les données des capteur distant (communiquant par onde radio 433MHz) et connecté au logiciel "Domoticz"
+
+
+
+
+LINUX --> Fichiers utilisé dans le cadre de l'utilisation de l'OS (démarrage script/logiciel au boot ...)
+
+Arboressence:
+	|	
+	|-- rc.local: Commandes lancées au démarrage de l'OS (copier le fichier sous /etc/) --> [info debug] erreur affichées dans le fichier /var/log/syslog (cat /var/log/syslog | grep rc.local)
 	|	
