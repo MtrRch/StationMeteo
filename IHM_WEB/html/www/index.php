@@ -19,8 +19,6 @@
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	  
-	  <script src="js/jquery.js"></script>
     </head>
 	
 	<?php 
@@ -256,22 +254,6 @@
 	<div class="row center">
 		<div class="col s3 m3 l4"></div>
 		
-		<script type="text/javascript">
-
-		function sel_courbe(sel) 
-		{
-			var opt=sel.getElementsByTagName("option" );
-			for (var i=0; i<opt.length; i++) 
-			{
-			  var x=document.getElementById(opt[i].value);
-			  if (x) x.style.display="none";
-			}
-			var cat = document.getElementById(sel.value);
-			if (cat) cat.style.display="block";
-        }
-
-		</script>
-		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
 			  <option value="0" disabled selected>Durée d'affichage<option>
@@ -311,22 +293,6 @@
 	
 	<div class="row center">
 		<div class="col s3 m3 l4"></div>
-		
-		<script type="text/javascript">
-
-		function sel_courbe(sel) 
-		{
-			var opt=sel.getElementsByTagName("option" );
-			for (var i=0; i<opt.length; i++) 
-			{
-			  var x=document.getElementById(opt[i].value);
-			  if (x) x.style.display="none";
-			}
-			var cat = document.getElementById(sel.value);
-			if (cat) cat.style.display="block";
-        }
-
-		</script>
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
@@ -395,20 +361,6 @@
 		<div class="col s3 m3 l4"></div>
 		
 		<script type="text/javascript">
-
-		function sel_courbe(sel) 
-		{
-			var opt=sel.getElementsByTagName("option" );
-			for (var i=0; i<opt.length; i++) 
-			{
-			  var x=document.getElementById(opt[i].value);
-			  if (x) x.style.display="none";
-			}
-			var cat = document.getElementById(sel.value);
-			if (cat) cat.style.display="block";
-        }
-
-		</script>
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
@@ -452,20 +404,6 @@
 		<div class="col s3 m3 l4"></div>
 		
 		<script type="text/javascript">
-
-		function sel_courbe(sel) 
-		{
-			var opt=sel.getElementsByTagName("option" );
-			for (var i=0; i<opt.length; i++) 
-			{
-			  var x=document.getElementById(opt[i].value);
-			  if (x) x.style.display="none";
-			}
-			var cat = document.getElementById(sel.value);
-			if (cat) cat.style.display="block";
-        }
-
-		</script>
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
@@ -538,22 +476,6 @@
 	<div class="row center">
 		<div class="col s3 m3 l4"></div>
 		
-		<script type="text/javascript">
-
-		function sel_courbe(sel) 
-		{
-			var opt=sel.getElementsByTagName("option" );
-			for (var i=0; i<opt.length; i++) 
-			{
-			  var x=document.getElementById(opt[i].value);
-			  if (x) x.style.display="none";
-			}
-			var cat = document.getElementById(sel.value);
-			if (cat) cat.style.display="block";
-        }
-
-		</script>
-		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
 			  <option value="0" disabled selected>Durée d'affichage<option>
@@ -593,22 +515,6 @@
 	
 	<div class="row center">
 		<div class="col s3 m3 l4"></div>
-		
-		<script type="text/javascript">
-
-		function sel_courbe(sel) 
-		{
-			var opt=sel.getElementsByTagName("option" );
-			for (var i=0; i<opt.length; i++) 
-			{
-			  var x=document.getElementById(opt[i].value);
-			  if (x) x.style.display="none";
-			}
-			var cat = document.getElementById(sel.value);
-			if (cat) cat.style.display="block";
-        }
-
-		</script>
 		
 		<div class=" center input-field col s6 m6 l4">
 			<select onchange="sel_courbe(this)">
@@ -656,29 +562,30 @@
 	</div>
 	  
 	</body>
-	 <script type="text/javascript">
-	 // Script bouton flottant
+	<script src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/materialize.js"></script>
+	<script type="text/javascript">
 	$(document).ready(function()
 	{
+		// Script bouton flottant
 		$('.fixed-action-btn').floatingActionButton();
-	});
-	</script>
-	
-	<script type="text/javascript">
-	// Script pour le 'sidenav'
-	$(document).ready(function()
-	{
+		// Script pour le 'sidenav'
 		$('.sidenav').sidenav();
-	});
-    </script>
-	
-	<script type="text/javascript">
-	// Script pour les sélecteur de graph
-	$(document).ready(function()
-	{
+		// Script pour les sélecteur de graph
 		$('select').formSelect();
 	});
+
+	function sel_courbe(sel)
+	{
+		var opt=sel.getElementsByTagName("option" );
+		for (var i=0; i<opt.length; i++) 
+		{
+			var x=document.getElementById(opt[i].value);
+			if (x) x.style.display="none";
+		}
+		var cat = document.getElementById(sel.value);
+		if (cat) cat.style.display="block";
+	}
 	</script>
-	
-    <script type="text/javascript" src="js/materialize.js"></script>
+
   </html
