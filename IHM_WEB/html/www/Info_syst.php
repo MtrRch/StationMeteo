@@ -21,10 +21,6 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	  
-	  <script src="js/jquery.js"></script>
-	  
-	  <script type="text/javascript" src="reboot.js"></script>
-	  
     </head>
 	
 	<?php
@@ -186,23 +182,16 @@
 		  hoverEnabled: false
 		});
 	});
-	</script>
-	
-	<script type="text/javascript">
+	$(document).ready(function()
+	{
 	// Script pour le 'sidenav'
-	$(document).ready(function()
-	{
 		$('.sidenav').sidenav();
-	});
-    </script>
-	
-	<script type="text/javascript">
-	// Script pour les sélecteur de graph
-	$(document).ready(function()
-	{
+		// Script pour les sélecteur de graph
 		$('select').formSelect();
 	});
 	</script>
 	
+	<script src="js/jquery.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
+	<script type="text/javascript" src="reboot.js"></script>
   </html
