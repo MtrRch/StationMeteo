@@ -84,41 +84,26 @@
 	
 	<?php // Informations réseau
 	
-	$Adresse_IP = $_SERVER['SERVER_ADDR']
+	$Adresse_IP = $_SERVER['SERVER_ADDR'];
 	
 	?>
 	
 	<body>
 
-	<nav class="nav-extended red">
-		<div class="nav-wrapper">
-		  <a href="#" class="brand-logo">Weather Station</a>
-		  <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-		  <ul id="nav-mobile" class="right hide-on-med-and-down">
-			<li><a href="index.php">Station Météo</a></li>
-			<li><a href="Version.php">Version</a></li>
+	<nav>
+		<div class="nav-wrapper red">
+		  <a href="#" class="brand-logo left">Weather 'Pi' Station</a>
+		  <ul id="nav-mobile" class="right">
+			<li><a href="Screen.php#Home">Station météo</a></li>
 		  </ul>
 		</div>
-	</nav>
-
-	<ul class="sidenav" id="mobile-demo">
-		<ul class="collection">
-			<li class="collection-item avatar">
-				<img src="icones/Red_Cloud.png" alt="" class="circle">
-				<span class="title red-text text-darken-2"><b>Weather 'Math' Station</b></span>
-				<p class="red-text text-darken-2">By Mamath
-				</p>
-			</li>
-		</ul>
-		<li><a class="red-text text-darken-2" href="index.php">Station Météo</a></li>
-		<li><a class="red-text text-darken-2" href="Version.php">Version</a></li>
-	</ul>
+	  </nav>
 	  
 	<div class="row ">
 		<div class="col s1 m1 l1"></div>
 		
 		<div class="col s10 m10 l10"> <!--titre de la page-->
-			<h2 class="red-text text-darken-2 center-align "> <b>Informations <br /> système</b></h2>		  
+			<h2 class="red-text text-darken-2 center-align "> <b>Informations système</b></h2>		  
 		</div>
 		
 		<div class="col s1 m1 l1"></div>
@@ -126,23 +111,25 @@
 	</div>	
 	  
 	 <div class="row center"> <!--informations utile-->
-		<div class="col s12">
-			<h4 class="red-text text-darken-2 center-align "> <b> Informations CPU</b> </h4>
-			<br />
+		<div class="col s4">
+			<h4 class="red-text text-darken-2 center-align "> <b> Informations CPU</b><br /><br /> </h4>
+			
 			<h6 class="red-text text-darken-2 center-align "> CPU:<br /><b> <?php echo $cpu;?></b></h6>
 			<!--<h6 class="red-text text-darken-2 center-align "> Charge du CPU: <b><?php //echo $cpu_usage;?>%</b> </h6>-->
-			<h6 class="red-text text-darken-2 center-align "> Température du CPU: <b><?php echo $temp_cpu;?>°C</b> </h6>
-			<br />
-			
-			<h4 class="red-text text-darken-2 center-align "> <b>Informations mémoire</b></h4>	
+			<h6 class="red-text text-darken-2 center-align "> Température du CPU: <b><?php echo $temp_cpu;?>°C</b> </h6>	
+		</div>
+		<div class="col s4">
+			<h4 class="red-text text-darken-2 center-align "> <b>Informations mémoire</b><br /><br /></h4>	
 			
 			<h6 class="red-text text-darken-2 center-align "> Espace total <b>:   <?php echo $Esp_total, "\n", $Esp_total_unit; ?></b></h6>
 			<h6 class="red-text text-darken-2 center-align "> Espace libre:   <b><?php echo $Esp_libre, "\n", $Esp_libre_unit ?></b> </h6>
 			<h6 class="red-text text-darken-2 center-align "> Taille du fichier CSV:   <b><?php echo $Esp_csv, "\n", $Esp_csv_unit; ?></b> </h6>
-			<br />	
-
-			<h4 class="red-text text-darken-2 center-align "> <b>Informations Réseau</b></h4>
-			<h6 class="red-text text-darken-2 center-align "> Adresse IP: <b><?php echo $Adresse_IP;?></b> </h6>			
+		</div>
+		
+		<div class="col s4">
+			<h4 class="red-text text-darken-2 center-align "> <b>Informations Réseau</b><br /><br /></h4>
+			
+			<h6 class="red-text text-darken-2 center-align "> Adresse IP: <b><?php echo $Adresse_IP;?></b> </h6>
 		</div>
 	</div>	
 	  
@@ -158,14 +145,8 @@
 				<i class="large material-icons">filter_list</i>
 			</a>
 			<ul>
-				<li><a class="btn-floating green" href="export_donnees_SenseHat.csv"><i class="material-icons">file_download</i></a></li>
-				<li><a class="btn-floating yellow darken-1" onclick="reboot();"><i class="material-icons">refresh</i>
-
-				</a></li>
-				<li><a class="btn-floating blue"><i onclick="shutdown();" class="material-icons">power_settings_new</i>
-				
-				</a></li>
-				<!--<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>-->
+				<li><a class="btn-floating yellow darken-1" onclick="reboot();"><i class="material-icons">refresh</i></a></li>
+				<li><a class="btn-floating blue"><i onclick="shutdown();" class="material-icons">power_settings_new</i></a></li>
 			</ul>
 		</div>
 	</div>	 
@@ -185,22 +166,6 @@
 		  direction: 'left',
 		  hoverEnabled: false
 		});
-	});
-	</script>
-	
-	<script type="text/javascript">
-	// Script pour le 'sidenav'
-	$(document).ready(function()
-	{
-		$('.sidenav').sidenav();
-	});
-    </script>
-	
-	<script type="text/javascript">
-	// Script pour les sélecteur de graph
-	$(document).ready(function()
-	{
-		$('select').formSelect();
 	});
 	</script>
 	

@@ -20,6 +20,8 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	  
+	  <script src="js/jquery.js"></script>
+	  
     </head>
 	
 	<body>
@@ -141,18 +143,36 @@
 	
 	
 	<script type="text/javascript">
+	// paragraphe déroulant
 	$(document).ready(function(){
-		// paragraphe déroulant
 		$('.collapsible').collapsible();
-		// Script outon flottant
+	});
+	</script>
+	
+	
+	 <script type="text/javascript">
+	 // Script outon flottant
+	$(document).ready(function()
+	{
 		$('.fixed-action-btn').floatingActionButton();
-		// Script pour le 'sidenav'
+	});
+	</script>
+	
+	<script type="text/javascript">
+	// Script pour le 'sidenav'
+	$(document).ready(function()
+	{
 		$('.sidenav').sidenav();
-		// Script pour les sélecteur de graph
+	});
+    </script>
+	
+	<script type="text/javascript">
+	// Script pour les sélecteur de graph
+	$(document).ready(function()
+	{
 		$('select').formSelect();
 	});
 	</script>
-
-	<script src="js/jquery.js"></script>
+	
     <script type="text/javascript" src="js/materialize.js"></script>
   </html

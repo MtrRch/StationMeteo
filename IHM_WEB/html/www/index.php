@@ -13,25 +13,42 @@
 		<meta http-equiv="Expires" content="0">
 		<meta http-equiv="refresh" content="3600;url=index.php">
 		<!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	  
+	    <script src="js/jquery.js"></script>
+	  
+		<style type="text/css" media="screen">
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		#chartdiv {
+		width: 100%;
+		height: 500px;
+		}
+		#chartdiv2 {
+		width: 100%;
+		height: 500px;
+		}
+		</style>
     </head>
 	
 	<?php 
 		// Execute un refresh de la page en PHP
 
-		$delai=60;  // délai en secondes
-		header("Refresh: $delai;");
+		//$delai=60;  // délai en secondes
+		//header("Refresh: $delai;");
 	?>
 	
 	<?php //Relecture de la dernière ligne du CSV + inscription dans les variables
 			$ligne = 1; // compteur de ligne
 			$fic = fopen("export_donnees_SenseHat.csv", "r"); //Ouverture du fichier en lecture
-			while($tab=fgetcsv($fic,0,'|'))
+			while($tab=fgetcsv($fic,0,','))
 			{
 				$champs = count($tab);//nombre de champ dans la ligne en question
 				//echo " Les " . $champs . " champs de la ligne " . $ligne . " sont :";
@@ -42,15 +59,14 @@
 					//echo $tab[$i] . "";
 				 }
 				$CSV_date = $tab[0];
-				$CSV_heure = $tab[1];
-				$temp1 = $tab[2];
-				$temp2 = $tab[3];
-				$hum= $tab[4];
-				$pression = $tab[5];
-				$Temp_ext= $tab[6];
-				$Hum_ext= $tab[7];
-				$Temp_chambre= $tab[8];
-				$Hum_chambre= $tab[9];
+				$temp1 = $tab[1];
+				$temp2 = $tab[2];
+				$hum= $tab[3];
+				$pression = $tab[4];
+				$Temp_ext= $tab[5];
+				$Hum_ext= $tab[6];
+				$Temp_chambre= $tab[7];
+				$Hum_chambre= $tab[8];
 			}
 	?>
 	
@@ -168,7 +184,7 @@
 		<br />
 	
 		<div class="col s4 m4 l4"> <!--colonne 1-->
-			<img class="responsive-img" src="icones/degree.png"/>
+			<img class="responsive-img" src="icones/thermometer.png"/>
 			<h6 class="blue-text text-darken-2 center-align"> Températures Salon</h6>
 			<h4 class="blue-text text-darken-2 center-align"> <?php echo $temp1; ?>°C</h4>
 			
@@ -179,7 +195,7 @@
 			<h4 class="blue-text text-darken-2 center-align"> <?php echo $hum; ?>%</h4>
 		</div>
 		<div class="col s4 m4 l4"> <!--Colonne 2-->
-			<img class="responsive-img" src="icones/degree.png"/>
+			<img class="responsive-img" src="icones/thermometer.png"/>
 			<h6 class="blue-text text-darken-2 center-align"> Températures chambre </h6>
 			<h4 class="blue-text text-darken-2 center-align"> <?php echo $Temp_chambre; ?>°C</h4>
 			
@@ -210,7 +226,7 @@
 		
 		
 		<div class="col s12"> <!--informations système-->
-				<h6 class="grey-text text-darken-2 center-align"> <br /> <br /> Dernière synchronisation à <?php echo $CSV_heure ?> </h6>
+				<h6 class="grey-text text-darken-2 center-align"> <br /> <br /> Dernière synchronisation: <?php echo $CSV_date ?> </h6>
 				<h6 class="grey-text text-darken-2 center-align"> Il reste <b><?php echo $Esp_libre, "\n", $Esp_libre_unit ?></b> de libre sur un total de <b>   <?php echo $Esp_total, "\n", $Esp_total_unit; ?></b> d'espace sur le disque </h6>
 				<div class="fixed-action-btn">
 					<a class="btn-floating btn-large blue">
@@ -222,6 +238,12 @@
 	</div>
 	
 	<div class="divider"></div>
+	
+	<div class="col s12">
+		<h1 class="center-align blue-text text-darken-2 col s12"> Graphiques d'évolution</h1>
+	</div>
+	
+	<div id="chartdiv"></div> <!--Graph températures-->
 
 	<!--********************-->
 	<!--***              ***-->
@@ -237,7 +259,7 @@
 	<div class="row center"> <!--affichage du récapitulatif des variables-->
 		<div class="col s1 m1 l1"></div>
 		<div class="col s5 m5 l5"> <!--colonne 1-->
-			<img class="responsive-img" src="icones/outside_thermometer.png"/>
+			<img class="responsive-img" src="icones/outside_thermometer_2.png"/>
 			<h6 class="blue-text text-darken-2 center-align"> Températures <br /> exterieure</h6>
 			<h3 class="blue-text text-darken-2 center-align"> <?php echo $Temp_ext; ?>°C</h3>
 		</div>
@@ -248,86 +270,6 @@
 		</div>
 		<div class="col s1 m1 l1"></div>
 	</div>
-	
-	
-	
-	<div class="row center">
-		<div class="col s3 m3 l4"></div>
-		
-		<div class=" center input-field col s6 m6 l4">
-			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Durée d'affichage<option>
-			  <!--<option value="13">Jours</option>-->
-			  <option value="14">Semaine</option>
-			  <option value="15">Mois</option>
-			  <option value="16">Année</option>
-			</select>
-		<label class=" center">Choix de la durée d'affichage</label>
-		
-		
-		</div>
-		
-		<div class="col s3 m3 l4"></div>
-	</div>
-
-		
-	<!--<div id="13" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température 2 du jour:</h5>
-		<img class="responsive-img" src="Graphs/temperature_2_Jour.png"/>
-	</div>-->
-	
-	<div id="14" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température extérieure de la semaine:</h5>
-		<img class="responsive-img" src="Graphs/temp_ext_Sem.png"/>
-	</div>
-
-	<div id="15" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température extérieure du mois:</h5>
-		<img class="responsive-img" src="Graphs/temp_ext_Mois.png"/>
-	</div>
-	
-	<div id="16" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température extérieure du l'année:</h5>
-		<img class="responsive-img" src="Graphs/temp_ext_Annee.png"/>
-	</div>
-	
-	<div class="row center">
-		<div class="col s3 m3 l4"></div>
-		
-		<div class=" center input-field col s6 m6 l4">
-			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Durée d'affichage<option>
-			  <!-- <option value="17">Jours</option>-->
-			  <option value="18">Semaine</option>
-			  <option value="19">Mois</option>
-			  <option value="20">Année</option>
-			</select>
-		<label class=" center">Choix de la durée d'affichage</label>
-		
-		</div>
-		
-		<div class="col s3 m3 l4"></div>
-	</div>
-	
-	<!--<div id="17" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité du jour:</h5>
-		<img class="responsive-img" src="Graphs/hum_Jour.png"/>
-	</div>-->
-	
-	<div id="18" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité extérieure de la semaine:</h5>
-		<img class="responsive-img" src="Graphs/hum_ext_Sem.png"/>
-	</div>
-
-	<div id="19" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité extérieure du mois:</h5>
-		<img class="responsive-img" src="Graphs/hum_ext_Mois.png"/>
-	</div>
-	
-	<div id="20" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité extérieure du l'année:</h5>
-		<img class="responsive-img" src="Graphs/hum_ext_Annee.png"/>
-    </div>  
 	
 	<div class="divider"></div>
 	
@@ -356,96 +298,6 @@
 		<div class="col s1 m1 l1"></div>
 	</div>
 	
-	
-	<div class="row center">
-		<div class="col s3 m3 l4"></div>
-		
-		<script type="text/javascript">
-		
-		<div class=" center input-field col s6 m6 l4">
-			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Durée d'affichage<option>
-			  <!--<option value="1">Jours</option>-->
-			  <option value="2">Semaine</option>
-			  <option value="3">Mois</option>
-			  <option value="4">Année</option>
-			</select>
-		<label class=" center">Choix de la durée d'affichage</label>
-		
-		
-		</div>
-		
-		<div class="col s3 m3 l4"></div>
-	</div>
-
-		
-	<!--<div id="1" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température du salon du jour:</h5>
-		<img class="responsive-img" src="Graphs/temperature_1_Jour.png"/>
-	</div>-->
-	
-	<div id="2" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température du salon de la semaine:</h5>
-		<img class="responsive-img" src="Graphs/temperature_1_Sem.png"/>
-	</div>
-
-	<div id="3" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température du salon du mois:</h5>
-		<img class="responsive-img" src="Graphs/temperature_1_Mois.png"/>
-	</div>
-	
-	<div id="4" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température du salon du l'année:</h5>
-		<img class="responsive-img" src="Graphs/temperature_1_Annee.png"/>
-	</div>
-	
-	
-	<div class="row center">
-		<div class="col s3 m3 l4"></div>
-		
-		<script type="text/javascript">
-		
-		<div class=" center input-field col s6 m6 l4">
-			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Durée d'affichage<option>
-			  <!-- <option value="9">Jours</option>-->
-			  <option value="10">Semaine</option>
-			  <option value="11">Mois</option>
-			  <option value="12">Année</option>
-			</select>
-		<label class=" center">Choix de la durée d'affichage</label>
-		
-		</div>
-		
-		<div class="col s3 m3 l4"></div>
-	</div>
-	
-	<!--<div id="9" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité du jour:</h5>
-		<img class="responsive-img" src="Graphs/hum_Jour.png"/>
-	</div>-->
-	
-	<div id="10" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité du mois:</h5>
-		<img class="responsive-img" src="Graphs/hum_Sem.png"/>
-	</div>
-
-	<div id="11" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité du mois:</h5>
-		<img class="responsive-img" src="Graphs/hum_Mois.png"/>
-	</div>
-	
-	<div id="12" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité du l'année:</h5>
-		<img class="responsive-img" src="Graphs/hum_Annee.png"/>
-    </div>  
-	
-	
-	<div class="divider"></div>
-	
-	
-    
-	
 	<div class="divider"></div>
 	
 	<!--********************-->
@@ -472,85 +324,13 @@
 		</div>
 		<div class="col s1 m1 l1"></div>
 	</div>
+	<!--********************-->
+	<!--***              ***-->
+	<!--***   Zone 5     ***-->
+	<!--***              ***-->
+	<!--********************-->
+	
 
-	<div class="row center">
-		<div class="col s3 m3 l4"></div>
-		
-		<div class=" center input-field col s6 m6 l4">
-			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Durée d'affichage<option>
-			  <!--<option value="21">Jours</option>-->
-			  <option value="22">Semaine</option>
-			  <option value="23">Mois</option>
-			  <option value="24">Année</option>
-			</select>
-		<label class=" center">Choix de la durée d'affichage</label>
-		
-		
-		</div>
-		
-		<div class="col s3 m3 l4"></div>
-	</div>
-
-		
-	<!--<div id="21" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température 2 du jour:</h5>
-		<img class="responsive-img" src="Graphs/temperature_2_Jour.png"/>
-	</div>-->
-	
-	<div id="22" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température de la chambre de la semaine:</h5>
-		<img class="responsive-img" src="Graphs/temp_chambre_Sem.png"/>
-	</div>
-
-	<div id="23" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température de la chambre du mois:</h5>
-		<img class="responsive-img" src="Graphs/temp_chambre_Mois.png"/>
-	</div>
-	
-	<div id="24" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de la température de la chambre du l'année:</h5>
-		<img class="responsive-img" src="Graphs/temp_chambre_Annee.png"/>
-	</div>
-	
-	<div class="row center">
-		<div class="col s3 m3 l4"></div>
-		
-		<div class=" center input-field col s6 m6 l4">
-			<select onchange="sel_courbe(this)">
-			  <option value="0" disabled selected>Durée d'affichage<option>
-			  <!-- <option value="25">Jours</option>-->
-			  <option value="26">Semaine</option>
-			  <option value="27">Mois</option>
-			  <option value="28">Année</option>
-			</select>
-		<label class=" center">Choix de la durée d'affichage</label>
-		
-		</div>
-		
-		<div class="col s3 m3 l4"></div>
-	</div>
-	
-	<!--<div id="25" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité du jour:</h5>
-		<img class="responsive-img" src="Graphs/hum_Jour.png"/>
-	</div>-->
-	
-	<div id="26" class="center col s12">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité de la chambre de la semaine:</h5>
-		<img class="responsive-img" src="Graphs/hum_chambre_Sem.png"/>
-	</div>
-
-	<div id="27" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité de la chambre du mois:</h5>
-		<img class="responsive-img" src="Graphs/hum_chambre_Mois.png"/>
-	</div>
-	
-	<div id="28" class="center col s12" style="display:none">
-		<h5 class="center-align blue-text text-darken-2 col s12"> l'évolution de l'humidité de la chambre du l'année:</h5>
-		<img class="responsive-img" src="Graphs/hum_chambre_Annee.png"/>
-    </div> 
-	
 	
 	  
 	<div class="col s12"> <!--informations système-->
@@ -562,30 +342,143 @@
 	</div>
 	  
 	</body>
-	<script src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/materialize.js"></script>
-	<script type="text/javascript">
+		<script src="js/core.js"></script> <!--lib pour la génération de graph-->
+		<script src="js/charts.js"></script> <!--lib pour la génération de graph-->
+		<script src="js/animated.js"></script> <!--lib pour la génération de graph-->
+		
+	 <script type="text/javascript">
+	 // Script bouton flottant
 	$(document).ready(function()
 	{
-		// Script bouton flottant
 		$('.fixed-action-btn').floatingActionButton();
-		// Script pour le 'sidenav'
+	});
+	</script>
+	
+	<script type="text/javascript">
+	// Script pour le 'sidenav'
+	$(document).ready(function()
+	{
 		$('.sidenav').sidenav();
-		// Script pour les sélecteur de graph
+	});
+    </script>
+	
+	<script type="text/javascript">
+	// Script pour les sélecteur de graph
+	$(document).ready(function()
+	{
 		$('select').formSelect();
 	});
-
-	function sel_courbe(sel)
-	{
-		var opt=sel.getElementsByTagName("option" );
-		for (var i=0; i<opt.length; i++) 
-		{
-			var x=document.getElementById(opt[i].value);
-			if (x) x.style.display="none";
-		}
-		var cat = document.getElementById(sel.value);
-		if (cat) cat.style.display="block";
-	}
 	</script>
+	
+    <script type="text/javascript" src="js/materialize.js"></script>
+	
+	<script type="text/javascript">
+			// Themes begin
+			am4core.useTheme(am4themes_animated);
+			// Themes end
+			
+			//
+			//////////////////////////////
+			// Create chart temp instance//
+			//////////////////////////////
+			//
+			
+			var chart = am4core.create("chartdiv", am4charts.XYChart);
+			
+			chart.paddingRight = 20;
+			
 
+			// Set up data source
+			chart.dataSource.url = "export_donnees_SenseHat.csv";
+			chart.dataSource.parser = new am4core.CSVParser();
+			chart.dataSource.parser.options.useColumnNames = false;
+			
+
+			// Create axes
+			var DateAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+			DateAxis.dataFields.category = "col0";
+		
+			DateAxis.renderer.labels.template.rotation = 45;
+			
+
+			// Create value axis
+			var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+			valueAxis.tooltip.disabled = true;
+			valueAxis.title.text = "Température";
+			valueAxis.max = 95;
+
+			// Create series
+			var series1 = chart.series.push(new am4charts.LineSeries());
+			series1.dataFields.valueY = "col5";
+			series1.dataFields.categoryX = "col0";
+			series1.name = "température extérieur";
+			series1.strokeWidth = 1;
+			series1.tensionX = 0.7;
+			series1.fillOpacity = 0.1;
+			series1.tooltipText = "temperature: [bold]{valueY}[/]";
+			
+			
+			var series2 = chart.series.push(new am4charts.LineSeries());
+			series2.dataFields.valueY = "col1";
+			series2.dataFields.categoryX = "col0";
+			series2.name = "température salon";
+			series2.strokeWidth = 1;
+			series2.tensionX = 0.7;
+			series2.fillOpacity = 0.1;
+			series2.tooltipText = "temperature: [bold]{valueY}[/]";
+			//series2.hidden = true;
+			
+			var series3 = chart.series.push(new am4charts.LineSeries());
+			series3.dataFields.valueY = "col7";
+			series3.dataFields.categoryX = "col0";
+			series3.name = "température chambre";
+			series3.strokeWidth = 1;
+			series3.tensionX = 0.7;
+			series3.fillOpacity = 0.1;
+			series3.tooltipText = "temperature: [bold]{valueY}[/]";
+			//series3.hidden = true;
+			
+			// Create series
+			var series4 = chart.series.push(new am4charts.LineSeries());
+			series4.dataFields.valueY = "col6";
+			series4.dataFields.categoryX = "col0";
+			series4.name = "Humidité extérieur";
+			series4.strokeWidth = 1;
+			series4.tensionX = 0.7;
+			series4.fillOpacity = 0.1;
+			series4.tooltipText = "humidité: [bold]{valueY}[/]";
+			series4.hidden = true;
+			
+			var series5 = chart.series.push(new am4charts.LineSeries());
+			series5.dataFields.valueY = "col3";
+			series5.dataFields.categoryX = "col0";
+			series5.name = "humidité salon";
+			series5.strokeWidth = 1;
+			series5.tensionX = 0.7;
+			series5.fillOpacity = 0.1;
+			series5.tooltipText = "humidité: [bold]{valueY}[/]";
+			series5.hidden = true;
+			
+			var series6 = chart.series.push(new am4charts.LineSeries());
+			series6.dataFields.valueY = "col8";
+			series6.dataFields.categoryX = "col0";
+			series6.name = "humidité chambre";
+			series6.strokeWidth = 1;
+			series6.tensionX = 0.7;
+			series6.fillOpacity = 0.1;
+			series6.tooltipText = "humidité: [bold]{valueY}[/]";
+			series6.hidden = true;
+			
+			chart.cursor = new am4charts.XYCursor();
+			chart.cursor.lineY.opacity = 0;
+			chart.cursor.behavior = "none";
+			chart.scrollbarX = new am4core.Scrollbar();
+			
+			chart.events.on("datavalidated", function () {
+			dateAxis.zoom({start:0.8, end:1});
+			});
+			
+			// Add legend
+			chart.legend = new am4charts.Legend();
+		</script>
   </html
