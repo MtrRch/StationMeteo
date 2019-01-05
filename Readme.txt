@@ -32,6 +32,10 @@ Arboressence:
 	|--reboot.js: Script javascript contenant les fonction de reboot et shutdown (il apelle les scripts php qui lance les commandes système)
 	|		
 	|--reboot.php: contient la commande de reboot, est appelé par "reboot.js"
+	|
+	|--Screen.php: Interface utilisée pour l'écran tactile
+	|
+	|--Sreen_Info_syst.php: information système de la station météo utilisé pour l'écran tactile
 	|		
 	|--shutdown.php: contient la commande de shutdown, est appelé par "reboot.js"
 	|

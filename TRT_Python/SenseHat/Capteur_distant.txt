@@ -1,2 +1,12 @@
 Hum_ext
+79
 Temp_ext
+3.8
+Hum_chambre
+53
+Temp_chambre
+20.5
+Hum_Salon
+60
+Temp_Salon
+19.2

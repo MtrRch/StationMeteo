@@ -23,12 +23,12 @@ result4=$(curl -s "http://localhost:8080/json.htm?type=devices&rid=9" | jq -r .r
 
 echo "Hum_Salon" >> /home/pi/Desktop/SenseHat/Capteur_distant.txt
 
-result3=$(curl -s "http://localhost:8080/json.htm?type=devices&rid=9" | jq -r .result[]."Data" | cut -d' ' -f3  >> /home/pi/Desktop/SenseHat/Capteur_distant.txt)
+result3=$(curl -s "http://localhost:8080/json.htm?type=devices&rid=55" | jq -r .result[]."Data" | cut -d' ' -f3  >> /home/pi/Desktop/SenseHat/Capteur_distant.txt)
 
 
 echo "Temp_Salon" >> /home/pi/Desktop/SenseHat/Capteur_distant.txt
 
-result4=$(curl -s "http://localhost:8080/json.htm?type=devices&rid=9" | jq -r .result[]."Data" | cut -d' ' -f1 >> /home/pi/Desktop/SenseHat/Capteur_distant.txt)
+result4=$(curl -s "http://localhost:8080/json.htm?type=devices&rid=55" | jq -r .result[]."Data" | cut -d' ' -f1 >> /home/pi/Desktop/SenseHat/Capteur_distant.txt)
 
 
 echo "Execution OK" 
