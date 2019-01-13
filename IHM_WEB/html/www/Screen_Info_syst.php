@@ -129,7 +129,7 @@
 		<div class="col s4">
 			<h4 class="red-text text-darken-2 center-align "> <b>Informations Réseau</b><br /><br /></h4>
 			
-			<h6 class="red-text text-darken-2 center-align "> Adresse IP: <b><?php echo $Adresse_IP;?></b> </h6>
+			<h6 class="red-text text-darken-2 center-align "> Adresse IP: <b>192.168.1.8<?php /*echo $Adresse_IP;*/?></b> </h6>
 		</div>
 	</div>	
 	  
